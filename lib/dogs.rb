@@ -29,6 +29,30 @@ class Dogs
   end
 
   # only edit below this line
+  def change_dog_name(name, new_name)
+    @dogs.each do |hash|
+      if hash[:name] == name
+        hash[:name] = new_name
+      end
+    end
+  end
+
+  def change_owner(name, new_name)
+    @dogs.each do |hash|
+      if hash[:owner][:name][:first] == name
+        hash[:owner][:name][:first] = new_name
+      end
+      if hash[:owner][:name][:last] == name
+        hash[:owner][:name][:last] = new_name
+      end
+      if "#{hash[:owner][:name][:first]} #{hash[:owner][:name][:last]}" == name
+        names_arr = new_name.split(' ')
+        hash[:owner][:name][:first] = names_arr[0]
+        hash[:owner][:name][:last] = names_arr[1]
+      end
+    end
+  end
+
   def find_by_owner(name)
     arr = []
     @dogs.each do |hash|
