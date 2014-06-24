@@ -87,32 +87,22 @@ describe Dogs do
 
   describe "#change_owner" do
     it "changes an owner based on first name" do
-      changed_dogs = dogs.change_owner("Joe","new_name")
-      expect(changed_dogs[0][:owner][:name][:first]).to eq("new_name")
     end
 
     it "changes the owner based on last name" do
-      changed_dogs = dogs.change_owner("Smith","new_name")
-      expect(changed_dogs[0][:owner][:name][:last]).to eq("new_name")
     end
 
     it "changes the owner based on a full name" do
-      changed_dogs = dogs.change_owner("Joe Smith","Peter Grunde")
-      expect(changed_dogs[0][:owner][:name][:first]).to eq("Peter")
-      expect(changed_dogs[0][:owner][:name][:last]).to eq("Grunde")
-    end
+      end
 
     it "doesn't change the owner if no owner is found" do
-      changed_dogs = dogs.change_owner("Joe Frank","Peter Grunde")
-      expect(changed_dogs[0][:owner][:name][:first]).to eq("Joe")
-      expect(changed_dogs[0][:owner][:name][:last]).to eq("Smith")
+
     end
   end
 
   describe "#change_dog_name" do
     it "changes name of dog" do
-      changed_dogs = dogs.change_dog_name("Fido","Kipper")
-      expect(changed_dogs[0][:name]).to eq("Kipper")
+
     end
   end
 end

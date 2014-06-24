@@ -29,129 +29,24 @@ class Dogs
   end
 
   # only edit below this line
-  def change_dog_name(name, new_name)
-    @dogs.each do |hash|
-      if hash[:name] == name
-        hash[:name] = new_name
-      end
-    end
-  end
-
-  def change_owner(name, new_name)
-    @dogs.each do |hash|
-      if hash[:owner][:name][:first] == name
-        hash[:owner][:name][:first] = new_name
-      end
-      if hash[:owner][:name][:last] == name
-        hash[:owner][:name][:last] = new_name
-      end
-      if "#{hash[:owner][:name][:first]} #{hash[:owner][:name][:last]}" == name
-        names_arr = new_name.split(' ')
-        hash[:owner][:name][:first] = names_arr[0]
-        hash[:owner][:name][:last] = names_arr[1]
-      end
-    end
-  end
-
-  def find_by_owner(name)
-    arr = []
-    @dogs.each do |hash|
-      if hash[:owner][:name][:first] == name || hash[:owner][:name][:last] == name || "#{hash[:owner][:name][:first]} #{hash[:owner][:name][:last]}" == name
-        arr.push(hash.select {|k,v| k == :name})
-      end
-    end
-    arr
-  end
-
-  def to_s
-    # "Joe owns: Fido, Yapper, and Bruiser\nSarah owns: Tank and Beast\nAndrew owns: Harleigh and Trixie"
-    string = ""
-    joe_dogs = []
-    sarah_dogs = []
-    andrew_dogs = []
-    @dogs.each do |hash|
-      if hash[:owner][:name][:first] == "Joe"
-        joe_dogs.push(hash[:name])
-      end
-      if hash[:owner][:name][:first] == "Sarah"
-        sarah_dogs.push(hash[:name])
-      end
-      if hash[:owner][:name][:first] == "Andrew"
-        andrew_dogs.push(hash[:name])
-      end
-    end
-    string = "Joe owns: #{joe_dogs[0]}, #{joe_dogs[1]}, and #{joe_dogs[2]}\nSarah owns: #{sarah_dogs[0]} and #{sarah_dogs[1]}\nAndrew owns: #{andrew_dogs[0]} and #{andrew_dogs[1]}"
-  end
-
-  def average_owners
-    arr = []
-    @dogs.each do |hash|
-      if hash[:owner][:owner_quality] == AVERAGE
-        unless arr.include?("#{hash[:owner][:name][:first]} #{hash[:owner][:name][:last]}")
-          arr.push("#{hash[:owner][:name][:first]} #{hash[:owner][:name][:last]}")
-        end
-      end
-    end
-    arr
-  end
-
-  def owners
-    arr = []
-    @dogs.each do |hash|
-      unless arr.include?("#{hash[:owner][:name][:first]} #{hash[:owner][:name][:last]}")
-        arr.push("#{hash[:owner][:name][:first]} #{hash[:owner][:name][:last]}")
-      end
-    end
-    arr
-  end
-
   def small_dogs
-    arr = []
-    @dogs.each do |hash|
-      arr.push(hash) if hash[:size] == :small
-    end
-    arr
+    dogs_by_size(:small)
   end
 
   def huge_dog
-    hugedog = nil
-    @dogs.each do |hash|
-      if hash[:size] == :huge
-        hugedog = hash.select {|k,v| k == :name}
+    dogs_by_size(:huge)
+  end
+
+  
+
+  def dogs_by_size(size)
+    list = []
+    @dogs.each do |dog|
+      if dog[:size] == size
+        list << dog.select { |k,v| k == :name }
       end
     end
-    hugedog
+    list
   end
-
-  def large_dog_names
-    arr = []
-    @dogs.each do |hash|
-      arr.push(hash[:name]) if hash[:size] == :large
-    end
-    arr
-  end
-
-  def joes_large_dogs
-    arr = []
-    @dogs.each do |hash|
-      arr.push(hash[:name]) if hash[:size] == :large && hash[:owner] == {
-      :name => {:first => "Joe", :last=> "Smith"},
-      :owner_quality => EXCELLENT
-      }
-    end
-    arr
-  end
-
-  def sizes
-    arr = []
-    @dogs.each do |hash|
-      unless arr.include?(hash[:size])
-        arr.push(hash[:size])
-      end
-    end
-    arr
-  end
-
-
 end
 
